@@ -18,7 +18,7 @@ const SidebarMenu = ({
   const navigate = useNavigate();
 
   const logout = () => {
-    toast.error("Logged out successfully");
+    toast.success("Logged out successfully");
     localStorage.removeItem("user");
     store.dispatch(setLoginStatus(false));
     navigate("/login");
@@ -28,89 +28,114 @@ const SidebarMenu = ({
     if (isSidebarOpen) {
       setIsAnimating(true);
     } else {
-      const timer = setTimeout(() => setIsAnimating(false), 300); // Match the transition duration
+      const timer = setTimeout(() => setIsAnimating(false), 300);
       return () => clearTimeout(timer);
     }
   }, [isSidebarOpen]);
 
   return (
     <>
+      {/* Backdrop */}
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+        ></div>
+      )}
+
+      {/* Sidebar */}
       {(isSidebarOpen || isAnimating) && (
         <div
-          className={
-            isSidebarOpen
-              ? "fixed top-0 left-0 w-64 z-50 h-full transition-transform duration-300 ease-in-out bg-white shadow-lg transform border-r border-black translate-x-0"
-              : "fixed top-0 left-0 w-64 z-50 h-full transition-transform duration-300 ease-in-out bg-white shadow-lg transform border-r border-black -translate-x-full"
-          }
+          className={`fixed top-0 left-0 w-72 h-full z-50 transition-transform duration-300 ease-in-out transform
+            ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+            bg-[#111827] border-r border-gray-700 shadow-2xl`}
         >
-          <div className="flex justify-end mr-1 mt-1">
-            <HiXMark
-              className="text-3xl cursor-pointer"
+          {/* Close icon */}
+          <div className="flex justify-end p-4">
+            <button
               onClick={() => setIsSidebarOpen(false)}
-            />
+              aria-label="Close sidebar"
+              className="text-gray-400 hover:text-white transition"
+            >
+              <HiXMark className="text-3xl" />
+            </button>
           </div>
-          <div className="flex justify-center mt-2">
+
+          {/* Brand Title */}
+          <div className="text-center mb-6">
             <Link
               to="/"
-              className="text-4xl font-light tracking-[1.08px] max-sm:text-3xl max-[400px]:text-2xl"
+              onClick={() => setIsSidebarOpen(false)}
+              className="text-3xl font-bold text-white tracking-wider"
             >
-              FASHION
+              Tint
             </Link>
           </div>
-          <div className="flex flex-col items-center gap-1 mt-7">
+
+          {/* Navigation */}
+          <nav className="flex flex-col gap-2 px-5 text-base font-medium">
             <Link
               to="/"
-              className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
+              onClick={() => setIsSidebarOpen(false)}
+              className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
             >
               Home
             </Link>
             <Link
               to="/shop"
-              className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
+              onClick={() => setIsSidebarOpen(false)}
+              className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
             >
               Shop
             </Link>
             <Link
               to="/search"
-              className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
+              onClick={() => setIsSidebarOpen(false)}
+              className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
             >
               Search
             </Link>
+            <Link
+              to="/cart"
+              onClick={() => setIsSidebarOpen(false)}
+              className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
+            >
+              Cart
+            </Link>
+
             {loginStatus ? (
-              <>
-                <button
-                  onClick={logout}
-                  className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
-                >
-                  Logout
-                </button>
-              </>
+              <button
+                onClick={() => {
+                  logout();
+                  setIsSidebarOpen(false);
+                }}
+                className="py-3 px-2 rounded hover:bg-red-600 text-red-400 hover:text-white transition text-left"
+              >
+                Logout
+              </button>
             ) : (
               <>
                 <Link
                   to="/login"
-                  className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
                 >
                   Sign in
                 </Link>
                 <Link
                   to="/register"
-                  className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="py-3 px-2 rounded hover:bg-gray-800 text-gray-200 hover:text-white transition"
                 >
                   Sign up
                 </Link>
               </>
             )}
-            <Link
-              to="/cart"
-              className="py-2 border-y border-secondaryBrown w-full block flex justify-center"
-            >
-              Cart
-            </Link>
-          </div>
+          </nav>
         </div>
       )}
     </>
   );
 };
+
 export default SidebarMenu;

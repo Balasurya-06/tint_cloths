@@ -1,5 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// Define the ProductInCart type if not already defined
+type ProductInCart = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+};
+
 type CartState = {
   productsInCart: ProductInCart[];
   subtotal: number;
@@ -10,68 +19,63 @@ const initialState: CartState = {
   subtotal: 0,
 };
 
-export const cartSlice = createSlice({
+const cartSlice = createSlice({
   name: "cart",
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     addProductToTheCart: (state, action: PayloadAction<ProductInCart>) => {
-      const product = state.productsInCart.find(
-        (product) => product.id === action.payload.id
+      const existingProduct = state.productsInCart.find(
+        (p) => p.id === action.payload.id
       );
-      if (product) {
-        state.productsInCart = state.productsInCart.map((product) => {
-          if (product.id === action.payload.id) {
-            return {
-              ...product,
-              quantity: product.quantity + action.payload.quantity,
-            };
-          }
-          return product;
-        });
+
+      if (existingProduct) {
+        existingProduct.quantity += action.payload.quantity;
       } else {
-        state.productsInCart.push(action.payload);
+        state.productsInCart.push({ ...action.payload });
       }
-      cartSlice.caseReducers.calculateTotalPrice(state);
+
+      state.subtotal = calculateSubtotal(state.productsInCart);
     },
-    removeProductFromTheCart: (
-      state,
-      action: PayloadAction<{ id: string }>
-    ) => {
+
+    removeProductFromTheCart: (state, action: PayloadAction<{ id: string }>) => {
       state.productsInCart = state.productsInCart.filter(
         (product) => product.id !== action.payload.id
       );
-      cartSlice.caseReducers.calculateTotalPrice(state);
+      state.subtotal = calculateSubtotal(state.productsInCart);
     },
+
     updateProductQuantity: (
       state,
       action: PayloadAction<{ id: string; quantity: number }>
     ) => {
-      state.productsInCart = state.productsInCart.map((product) => {
-        if (product.id === action.payload.id) {
-          return {
-            ...product,
-            quantity: action.payload.quantity,
-          };
-        }
-        return product;
-      });
-      cartSlice.caseReducers.calculateTotalPrice(state);
-    },
-    calculateTotalPrice: (state) => {
-      state.subtotal = state.productsInCart.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
+      const product = state.productsInCart.find(
+        (p) => p.id === action.payload.id
       );
+
+      if (product) {
+        product.quantity = action.payload.quantity;
+      }
+
+      state.subtotal = calculateSubtotal(state.productsInCart);
+    },
+
+    clearCart: (state) => {
+      state.productsInCart = [];
+      state.subtotal = 0;
     },
   },
 });
+
+// Helper to keep subtotal logic clean
+function calculateSubtotal(products: ProductInCart[]): number {
+  return products.reduce((total, p) => total + p.price * p.quantity, 0);
+}
 
 export const {
   addProductToTheCart,
   removeProductFromTheCart,
   updateProductQuantity,
-  calculateTotalPrice,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

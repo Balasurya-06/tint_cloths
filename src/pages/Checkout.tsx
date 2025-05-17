@@ -88,15 +88,15 @@ const Checkout = () => {
         >
           <div>
             <div>
-              <h2 className="text-lg font-medium text-gray-900">
-                Contact information
+              <h2 className="text-lg font-medium text-white">
+               Contact information
               </h2>
+
 
               <div className="mt-4">
                 <label
                   htmlFor="email-address"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                    className="text-lg font-medium text-white"                >
                   Email address
                 </label>
                 <div className="mt-1">
@@ -105,23 +105,23 @@ const Checkout = () => {
                     id="email-address"
                     name="emailAddress"
                     autoComplete="email"
-                    className="block w-full py-2 indent-2 border-gray-300 outline-none focus:border-gray-400 border border shadow-sm sm:text-sm"
-                    required={true}
-                  />
+className="block w-full py-2 px-3 border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border shadow-sm sm:text-sm rounded-md"
+                required={true}                  />
                 </div>
               </div>
             </div>
 
             <div className="mt-10 border-t border-gray-200 pt-10">
-              <h2 className="text-lg font-medium text-gray-900">
-                Shipping information
+              <h2 className="text-lg font-medium text-white">
+              Shipping information
               </h2>
+
 
               <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                 <div>
                   <label
                     htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     First name
                   </label>
@@ -140,7 +140,7 @@ const Checkout = () => {
                 <div>
                   <label
                     htmlFor="last-name"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Last name
                   </label>
@@ -159,7 +159,7 @@ const Checkout = () => {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="company"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Company
                   </label>
@@ -177,7 +177,7 @@ const Checkout = () => {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="address"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Address
                   </label>
@@ -196,7 +196,7 @@ const Checkout = () => {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="apartment"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Apartment, suite, etc.
                   </label>
@@ -214,7 +214,7 @@ const Checkout = () => {
                 <div>
                   <label
                     htmlFor="city"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     City
                   </label>
@@ -233,7 +233,7 @@ const Checkout = () => {
                 <div>
                   <label
                     htmlFor="country"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Country
                   </label>
@@ -255,7 +255,7 @@ const Checkout = () => {
                 <div>
                   <label
                     htmlFor="region"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     State / Province
                   </label>
@@ -274,7 +274,7 @@ const Checkout = () => {
                 <div>
                   <label
                     htmlFor="postal-code"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Postal code
                   </label>
@@ -293,7 +293,7 @@ const Checkout = () => {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-lg font-medium text-white" 
                   >
                     Phone
                   </label>

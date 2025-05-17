@@ -2,11 +2,12 @@ import CategoryItem from "./CategoryItem";
 
 const CategoriesSection = () => {
   return (
-    <div className="max-w-screen-2xl px-5 mx-auto mt-24">
-      <h2 className="text-black text-5xl font-normal tracking-[1.56px] max-sm:text-4xl mb-12">
+    <section className="max-w-screen-2xl px-4 sm:px-6 lg:px-8 mx-auto mt-20">
+      <h2 className="text-4xl sm:text-5xl font-semibold text-center text-gray-900 tracking-tight mb-14">
         Our Categories
       </h2>
-      <div className="flex justify-between flex-wrap gap-y-10">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <CategoryItem
           categoryTitle="Special Edition"
           image="luxury category 1.png"
@@ -28,7 +29,8 @@ const CategoriesSection = () => {
           link="unique-collection"
         />
       </div>
-    </div>
+    </section>
   );
 };
+
 export default CategoriesSection;
